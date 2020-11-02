@@ -3,61 +3,86 @@ import pygame
 pygame.init()
 pygame.font.init()
  
-run = True
+RUNNING = True
  
-fenetre = pygame.display.set_mode((500,500))
+fenetre = pygame.display.set_mode((500,500)) # fenetre de dimenssion 500,500
+ 
+myfont = pygame.font.SysFont('Helvetic', 20)
 
-myfont = pygame.font.SysFont('Helvetic', 20) # Police et taille du texte 
- 
- 
+
+
+
 def gerer_events_principale():
-    global run
+    global RUNNING
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+        if event.type == pygame.QUIT: # pouvoir quitter la fenetre 
+            RUNNING = False
+
+            
  
 def menu():
-    rect = pygame.draw.rect(fenetre,(255,0,0),pygame.Rect(200, 200, 100, 100)) #position et taille du rectangle 
- 
-    text = myfont.render('Jouer ', False, (255,255,255)) #couleur du bouton 
-    fenetre.blit(text, (200,200)) # position du texte 
- 
-    gerer_mouse_menu(rect)
     
+    
+    fond=pygame.Surface(fenetre.get_size())
+    fond=fond.convert()
+    fond.fill((250,250,250))
+    fenetre.blit(fond,(0,0))
+
+    rect = pygame.draw.rect(fenetre,(0,0,0),pygame.Rect(200, 200, 100, 50)) # afficher un rectangle dans la fenetre 
+    text = myfont.render(' Jouer ', False, (255,250,250)) # text afficher en blanc
+    
+    fenetre.blit(text, (225,215)) # modifier les pixels de la fenetre, place du texte
+    
+    gerer_mouse_menu(rect) # appeller la fonction gerer_mouse_menu avec comme paramêtre rect
+
+    
+     
 def jeu():
-    rect = pygame.draw.rect(fenetre,(0,255,0),pygame.Rect(200, 200, 100, 100))
+
+    image_fond=pygame.image.load("fondmario.jpg")
+    fenetre.blit(image_fond,(0,0))
+    
+    rect = pygame.draw.rect(fenetre,(255,0,0),pygame.Rect(10, 450, 75, 30)) # afficher un rectangle dans la fenetre 
  
-    text = myfont.render('GOOOO', False, (255,255,255))
-    fenetre.blit(text, (200,200))# position du texte 
+    text = myfont.render('Quitter ', False, (255,255,255)) # text afficher en blanc  
+    fenetre.blit(text, (20,460)) # modifier les pixels de la fenetre, place du texte  
  
-    gerer_mouse_jeu(rect)
+    gerer_mouse_jeu(rect) # appeller la fonction gerer_mouse_jeu avec comme paramêtre rect
+
+    
      
 def gerer_mouse_jeu(rectangle):
     global afficher
      
     mouse = pygame.mouse.get_pressed()
     if mouse[0]: 
-        mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = pygame.mouse.get_pos()# recuperer la position de la souris cliqué.
          
-        if rectangle.collidepoint(mouse_pos):
-            afficher = menu
+        if rectangle.collidepoint(mouse_pos): # si il y a collision avec la souris et le rectangle mis en paramêtre 
+            afficher = menu # afficher la menu avec le bouton jouer
+
+            
  
 def gerer_mouse_menu(rectangle):
     global afficher
      
-    mouse = pygame.mouse.get_pressed()
+    mouse = pygame.mouse.get_pressed() 
     if mouse[0]: 
-        mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = pygame.mouse.get_pos() # recuperer la position de la souris cliqué.
          
         if rectangle.collidepoint(mouse_pos):
-            afficher = jeu
- 
-## Affecte la fonction menu
+            afficher = jeu # afficher la menu avec le bouton quitter
+
+            
+
+
+# Affecte la fonction menu
 afficher = menu
  
 def boucle_principale():
-    while run:
-        fenetre.fill( (0,0,0) )
+    while RUNNING:
+
+        fenetre.fill( (0,0,0) ) # couleur du fond 
          
         gerer_events_principale()
          
@@ -72,6 +97,7 @@ def boucle_principale():
  
  
 boucle_principale()
+
     
 "menu.add_button('Play', start_the_game)"
 "menu.add_button('Quit', pygame_menu.events.EXIT)"

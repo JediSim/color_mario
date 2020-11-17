@@ -31,7 +31,7 @@ ennemiImg = pygame.image.load("ennemi.jpg")
 ennemiImg.set_colorkey(BLANC) #pour enlever le fond blanc de l'image
 tailleennemi = 50
 ennemiImSmall = pygame.transform.scale(ennemiImg,(tailleennemi,tailleennemi))
-ennemiX = 240   #si jamais on veut bouger horizontalement
+ennemiX = 250   #si jamais on veut bouger horizontalement
 ennemiY = 0     # pour faire descendre l'ennemi
 
 def ennemi(x,y):
@@ -50,14 +50,13 @@ while continuer:
             continuer = False
 
         for i in range(0 , lgfenetre-tailleennemi):
-            print(i)
             time.sleep(0.2)
+            fenetre.blit(fenetre, (ennemiX,ennemiY))
             ennemiY += i
             if ennemiY<=0:
                 ennemiY=0            #on verifie que l'ennemi soit bien dans la fenetre
             elif ennemiY>=470:
                 ennemiY=0           #permet de revenir en haut
-
             ennemi(ennemiX,ennemiY)
             pygame.display.update()
 

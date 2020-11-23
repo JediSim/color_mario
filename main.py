@@ -4,7 +4,7 @@ from ennemi import Ennemi
 from joueur import Joueur
 import time
 
-
+imgjoueur=pygame.image.load('player.png')
 class Jeu:
     def __init__(self):
         successes, failures = pygame.init()
@@ -21,7 +21,8 @@ class Jeu:
         self.joueur_x = 600
         self.joueur_y = 200
         self.joueur_vitesse_x=0
-        self.joueur = Joueur(self.joueur_x,self.joueur_y,self.taille)
+        self.image = pygame.transform.scale(imgjoueur,(30,30))
+        self.joueur = Joueur(self.joueur_x,self.joueur_y,self.image)
 
     def boucle_principale(self):
         # boucle principale du jeu

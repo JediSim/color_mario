@@ -10,4 +10,4 @@ bonus malus
 Léa menu avance le 02/11 
 
 Note :
-Juliette : retravailler le code d'ennemi pour que le jeu charge moins ...lol
+Juliette : revoir la gravite 

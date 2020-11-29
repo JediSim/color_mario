@@ -2,6 +2,7 @@ import pygame
 import sys
 from ennemi import Ennemi
 from joueur import Joueur
+from cercle import Cercle
 import time
 
 imgjoueur=pygame.image.load('player.png')

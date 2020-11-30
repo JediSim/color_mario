@@ -64,7 +64,7 @@ class Jeu:
             self.ecran.fill((255,255,255))
             self.joueur.afficher(self.ecran)
             self.cercle.afficherCercle(self.ecran)
-            if self.cercle.etreDansCercle(self.joueur_x,self.joueur_y):
+            #if self.cercle.etreDansCercle(self.joueur_x,self.joueur_y):
                print("je suis dans le cercle")   # ne fonctionne pas encore / Léa
             self.ennemi.afficher(self.ecran)
             pygame.display.flip()

@@ -10,7 +10,7 @@ class Joueur (pygame.sprite.Sprite):
 
     def afficher(self,surface):
 
-        surface.blit(self.image,self.rect)
+        surface.blit(self.image,(self.x,self.y))
         
     def mouvement ( self, vitesse):
         self.x+=vitesse  

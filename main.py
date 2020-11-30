@@ -18,8 +18,8 @@ class Jeu:
         self.ennemi_vitesse_y = 10 #permet de faire descendre l'ennemi
         self.ennemi = Ennemi(self.ennemi_x,self.ennemi_y,self.taille)
         #joueur
-        self.joueur_x = 600
-        self.joueur_y = 200
+        self.joueur_x = 550
+        self.joueur_y = 550
         self.joueur_vitesse_x=0
         self.image = pygame.transform.scale(imgjoueur,(30,30))
         self.joueur = Joueur(self.joueur_x,self.joueur_y,self.image)
@@ -43,9 +43,9 @@ class Jeu:
                     
                 if event.type== pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        self.joueur_vitesse_x= -1      #deplacement touchent pressée 
+                        self.joueur_vitesse_x= -2     #deplacement touchent pressée 
                     if event.key == pygame.K_RIGHT:
-                        self.joueur_vitesse_x= 1       
+                        self.joueur_vitesse_x= 2       
                 if event.type==pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
                         self.joueur_vitesse_x= 0                # touche relachée 

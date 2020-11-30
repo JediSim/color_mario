@@ -1,4 +1,5 @@
 import pygame
+import math
 
 class Joueur (pygame.sprite.Sprite):
     def __init__ (self,x,y,image):
@@ -7,11 +8,17 @@ class Joueur (pygame.sprite.Sprite):
         self.x=x
         self.y=y
         self.image=image
+        self.rect=image.get_rect()
+        
 
     def afficher(self,surface):
-
-        surface.blit(self.image,(self.x,self.y))
+        self.rect.x=self.x
+        self.rect.y=self.y
+        surface.blit(self.image,self.rect)
         
     def mouvement ( self, vitesse):
-        self.x+=vitesse  
-        
+        self.x+=vitesse
+        self.rect.x=self.x
+        self.rect.y=self.y
+
+       

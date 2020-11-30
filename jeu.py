@@ -1,0 +1,63 @@
+import pygame
+from bouton import*
+from menu import*
+from player import*
+from ennemi import*
+from sol import*
+
+class Jeu:
+    def __init__(self,ecran):
+        self.image_fond = pygame.image.load("images/fondmario.jpg")
+        self.ecran = ecran
+        self.FPS = 30
+        self.clock = pygame.time.Clock()
+
+        #----------joueur------------
+        self.joueur_vitesse_x = 0
+        self.player = Player(ecran)
+
+        #----------ennemi------------
+        self.ennemi_vitesse_y = 2
+        self.ennemi = Ennemi(250,0,[32,64])
+        self.gravite = (0,4) #pour impression joueur tombe
+        self.resistance = (0,0)
+
+        #--------------Sol-----------
+        self.sol=Sol()
+
+        #self.bouton_quit = Bouton(10,450,75,30,ecran)
+        
+    def run(self):
+        self.ecran.blit(self.image_fond,(0,0))
+        self.player.affiche()
+        quitter = False
+        while not quitter:
+            self.clock.tick(self.FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: # pouvoir quitter la ecran 
+                    RUNNING = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        self.joueur_vitesse_x= -3
+                    elif event.key == pygame.K_RIGHT:
+                        self.joueur_vitesse_x= 3
+
+            if self.sol.rect.colliderect(self.ennemi.rect):
+                self.ennemi.rect.y = 0
+
+            self.player.mouvement(self.joueur_vitesse_x)
+            self.ennemi.mouvement(self.ennemi_vitesse_y)
+            self.ecran.blit(self.image_fond,(0,0))
+            #self.ecran.fill((255,255,255))
+
+            self.ennemi.afficher(self.ecran)
+            self.sol.afficher(self.ecran)
+            self.gravite_jeu()
+
+            self.player.affiche()
+
+            pygame.display.update()
+
+    def gravite_jeu(self):
+        self.ennemi.rect.y += self.gravite[1] + self.resistance[1]
+

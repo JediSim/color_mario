@@ -2,7 +2,6 @@ import pygame
 import sys
 from ennemi import Ennemi
 from joueur import Joueur
-from cercle import Cercle
 import time
 
 imgjoueur=pygame.image.load('player.png')
@@ -24,12 +23,7 @@ class Jeu:
         self.joueur_vitesse_x=0
         self.image = pygame.transform.scale(imgjoueur,(30,30))
         self.joueur = Joueur(self.joueur_x,self.joueur_y,self.image)
-        #Cercle
-        # CERCLE
-        self.cercle_x=100
-        self.cercle_y=50
-        self.cercle_R=20
-        self.cercle=Cercle(self.cercle_x,self.cercle_y, self.cercle_R)
+        
         
 
     def boucle_principale(self):
@@ -45,8 +39,8 @@ class Jeu:
                 self.ennemi_vitesse_y = -1
                 
                 if event.type == pygame.QUIT:
-                    sys.exit()
-
+                    self.jeu_encours=False
+                    
                 if event.type== pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         self.joueur_vitesse_x= -1      #deplacement touchent pressée 
@@ -62,11 +56,9 @@ class Jeu:
 
             self.joueur.mouvement(self.joueur_vitesse_x)
             self.ecran.fill((255,255,255))
-            self.joueur.afficher(self.ecran)
-            self.cercle.afficherCercle(self.ecran)
-            #if self.cercle.etreDansCercle(self.joueur_x,self.joueur_y):
-               print("je suis dans le cercle")   # ne fonctionne pas encore / Léa
             self.ennemi.afficher(self.ecran)
+            self.joueur.afficher(self.ecran)
+            
             pygame.display.flip()
 
 if __name__ == '__main__':

@@ -15,6 +15,6 @@ class Player:
         self.rect.y=self.y
 
     def affiche(self):
-       self.rect.x=self.x
+        self.rect.x=self.x
         self.rect.y=self.y
-        surface.blit(self.image,self.rect)
+        self.ecran.blit(self.image,self.rect)

@@ -38,9 +38,14 @@ class Jeu:
                     RUNNING = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        self.joueur_vitesse_x= -3
+                        self.joueur_vitesse_x= -5
                     elif event.key == pygame.K_RIGHT:
-                        self.joueur_vitesse_x= 3
+                        self.joueur_vitesse_x= 5
+                elif event.type==pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.joueur_vitesse_x= 0                # touche relachée 
+                    elif event.key==pygame.K_LEFT:
+                        self.joueur_vitesse_x= 0
 
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0

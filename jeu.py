@@ -44,6 +44,9 @@ class Jeu:
 
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0
+            if self.player.rect.colliderect(self.ennemi.rect):    # collision entre l'ennemi et le joueur 
+                print("collision")
+
 
             self.player.mouvement(self.joueur_vitesse_x)
             self.ennemi.mouvement(self.ennemi_vitesse_y)

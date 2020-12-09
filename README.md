@@ -6,15 +6,3 @@ Vous pouvez les traverser si votre couleur est identique à l'obsacle.
 
 Pour jouer ouvrer le main.py 
 Bonne chance.
-
-
-
-
-
-
-
-
-
-Note :
-Léa : collision commence avec des cercle 29/11
-Juliette : revoir la gravite 

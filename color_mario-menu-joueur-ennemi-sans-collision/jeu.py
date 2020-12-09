@@ -51,6 +51,7 @@ class Jeu:
 
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0
+                self.ennemi.color.couleur()
             if self.player.rect.colliderect(self.ennemi.rect):    # collision entre l'ennemi et le joueur 
                 self.menu.run()
 

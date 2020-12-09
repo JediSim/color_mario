@@ -6,11 +6,12 @@ from ennemi import*
 from sol import*
 
 class Jeu:
-    def __init__(self,ecran):
+    def __init__(self,ecran,menu):
         self.image_fond = pygame.image.load("images/fondmario.jpg")
         self.ecran = ecran
         self.FPS = 30
         self.clock = pygame.time.Clock()
+        self.menu = menu
 
         #----------joueur------------
         self.joueur_vitesse_x = 0
@@ -36,6 +37,7 @@ class Jeu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 
                     RUNNING = False
+                    quitter = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         self.joueur_vitesse_x= -5
@@ -50,7 +52,7 @@ class Jeu:
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0
             if self.player.rect.colliderect(self.ennemi.rect):    # collision entre l'ennemi et le joueur 
-                print("collision")
+                self.menu.run()
 
 
             self.player.mouvement(self.joueur_vitesse_x)

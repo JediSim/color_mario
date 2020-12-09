@@ -3,6 +3,7 @@ import sys
 from sol import Sol
 from ennemi import Ennemi
 from joueur import Joueur
+from couleur import *
 import time
 
 imgjoueur=pygame.image.load('player.png')
@@ -18,7 +19,8 @@ class Jeu:
         #ennemi
         self.ennemi_x = 550
         self.ennemi_y = 0
-        self.ennemi = Ennemi(self.ennemi_x,self.ennemi_y,self.taille)
+        self.color = Couleur()
+        self.ennemi = Ennemi(self.ennemi_x,self.ennemi_y,self.taille, self.color)
         self.gravite = (0,4) #pour impression joueur tombe
         self.resistance = (0,0)
         
@@ -58,6 +60,7 @@ class Jeu:
                         self.joueur_vitesse_x= 0
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0
+                self.ennemi.color.couleur()
             if self.joueur.rect.colliderect(self.ennemi.rect):
                 print("collision")
 
@@ -66,7 +69,7 @@ class Jeu:
             self.ennemi.afficher(self.ecran)
             self.sol.afficher(self.ecran)
             self.gravite_jeu()
-            #self.joueur.afficher(self.ecran)
+            self.joueur.afficher(self.ecran)
             
             pygame.display.flip()
             

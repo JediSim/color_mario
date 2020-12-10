@@ -38,7 +38,7 @@ class Jeu:
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 
                     RUNNING = False
                     quitter = False
-                elif event.type == pygame.KEYDOWN:
+                elif event.type == pygame.KEYDOWN:   # touche pressée 
                     if event.key == pygame.K_LEFT:
                         self.joueur_vitesse_x= -5
                     elif event.key == pygame.K_RIGHT:
@@ -48,6 +48,8 @@ class Jeu:
                         self.joueur_vitesse_x= 0                # touche relachée 
                     elif event.key==pygame.K_LEFT:
                         self.joueur_vitesse_x= 0
+                    elif event.key == pygame.K_SPACE:
+                        self.player.playerChange()
 
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0

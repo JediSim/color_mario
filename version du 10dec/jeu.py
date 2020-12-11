@@ -6,6 +6,7 @@ from ennemi import*
 from sol import*
 from random import*
 from score import*
+from gameover import*
 
 class Jeu:
     def __init__(self,ecran,menu):
@@ -57,14 +58,17 @@ class Jeu:
                
                
 
-            if self.sol.rect.colliderect(self.ennemi.rect):
+            if self.sol.rect.colliderect(self.ennemi.rect): # detecter que l'obstacle arrive en bas de l'ecran
                 self.ennemi.rect.y = 0
                 self.ennemi.color.couleur()
                 self.ennemi.rect.x = randint(50,450)
                 self.score.point += 1
             if self.player.rect.colliderect(self.ennemi.rect) :    # collision entre l'ennemi et le joueur 
                 if not self.ennemi.color.color == self.player.color :
-                    self.menu.run()
+                    if self.score.isBestScore():
+                        self.score.ajouterBestScore()
+                    gameover = Gameover(self.ecran,self.menu,self.score)
+                    gameover.run()
 
 
             self.player.mouvement(self.joueur_vitesse_x)
@@ -72,6 +76,7 @@ class Jeu:
             self.ecran.blit(self.image_fond,(0,0))
             #self.ecran.fill((255,255,255))
             
+            self.score.afficherBestScore()
             self.score.afficher()
 
             self.ennemi.afficher(self.ecran)

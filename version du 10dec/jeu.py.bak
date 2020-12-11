@@ -41,36 +41,32 @@ class Jeu:
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 
                     RUNNING = False
                     quitter = True
-                elif event.type == pygame.KEYDOWN: # touches presse 
+                elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         self.joueur_vitesse_x= -5
                     elif event.key == pygame.K_RIGHT:
                         self.joueur_vitesse_x= 5
-                    
-                elif event.type==pygame.KEYUP:  # touche relachée 
+                elif event.type==pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
-                        self.joueur_vitesse_x= 0               
+                        self.joueur_vitesse_x= 0                # touche relachée 
                     elif event.key==pygame.K_LEFT:
                         self.joueur_vitesse_x= 0
-                    elif event.key == pygame.K_SPACE:
-                        self.player.playerChange()
-               
-               
 
             if self.sol.rect.colliderect(self.ennemi.rect):
                 self.ennemi.rect.y = 0
                 self.ennemi.color.couleur()
                 self.ennemi.rect.x = randint(50,450)
                 self.score.point += 1
-            if self.player.rect.colliderect(self.ennemi.rect) :    # collision entre l'ennemi et le joueur 
-                if not self.ennemi.color.color == self.player.color :
-                    self.menu.run()
+            if self.player.rect.colliderect(self.ennemi.rect):    # collision entre l'ennemi et le joueur 
+                self.menu.run()
 
 
             self.player.mouvement(self.joueur_vitesse_x)
             self.ennemi.mouvement(self.ennemi_vitesse_y)
             self.ecran.blit(self.image_fond,(0,0))
             #self.ecran.fill((255,255,255))
+
+            self.score.afficher()
 
             self.ennemi.afficher(self.ecran)
             self.sol.afficher(self.ecran)
@@ -82,3 +78,4 @@ class Jeu:
 
     def gravite_jeu(self):
         self.ennemi.rect.y += self.gravite[1] + self.resistance[1]
+

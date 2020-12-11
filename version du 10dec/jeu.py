@@ -71,6 +71,8 @@ class Jeu:
             self.ennemi.mouvement(self.ennemi_vitesse_y)
             self.ecran.blit(self.image_fond,(0,0))
             #self.ecran.fill((255,255,255))
+            
+            self.score.afficher()
 
             self.ennemi.afficher(self.ecran)
             self.sol.afficher(self.ecran)

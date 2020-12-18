@@ -42,3 +42,8 @@ class Score:
         champs = font.render("Best Score : "+fichier.read(),1,self.couleurTexte)
         self.ecran.blit(champs,(abs,ord))
         fichier.close()
+
+    def afficherScoreGameOver(self,abs,ord):
+        font=pygame.font.Font(None, 30)
+        champs = font.render("your score : " + str(self.point),1,self.couleurTexte)
+        self.ecran.blit(champs,(abs,ord))

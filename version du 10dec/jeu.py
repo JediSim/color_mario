@@ -35,6 +35,7 @@ class Jeu:
     def run(self):
         self.ecran.blit(self.image_fond,(0,0))
         self.player.affiche()
+        score5 = self.score.point + 5
         quitter = False
         while not quitter:
             self.clock.tick(self.FPS)
@@ -69,6 +70,9 @@ class Jeu:
                         self.score.ajouterBestScore()
                     gameover = Gameover(self.ecran,self.menu,self.score)
                     gameover.run()
+            if self.score.point == score5:
+                self.player.playerChange()
+                score5 = self.score.point + 5
 
 
             self.player.mouvement(self.joueur_vitesse_x)

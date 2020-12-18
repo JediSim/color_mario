@@ -12,6 +12,8 @@ class Gameover():
         self.yGameOver = 90
         self.xBestScore = 150
         self.yBestScore = 145
+        self.xYourScore = 200
+        self.yYourScore = 175
         self.couleurTexte = (255,0,0)
 
     def afficherGameOver(self):
@@ -23,7 +25,7 @@ class Gameover():
         RUNNING = True
         while RUNNING:
             self.ecran.fill( (250,250,250) ) # couleur du fond 
-            bouton_menu = Bouton(200,200,100,50,self.ecran,"menu",(255,255,255))
+            bouton_menu = Bouton(200,255,100,50,self.ecran,"menu",(255,255,255))
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 
@@ -33,6 +35,7 @@ class Gameover():
             
             self.afficherGameOver()
             self.score.afficherBestScoreGameOver(self.xBestScore,self.yBestScore)
+            self.score.afficherScoreGameOver(self.xYourScore,self.yYourScore)
             pygame.display.update()
          
         pygame.quit()

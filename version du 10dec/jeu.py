@@ -15,6 +15,7 @@ class Jeu:
         self.FPS = 30
         self.clock = pygame.time.Clock()
         self.menu = menu
+        #-----------affichage du score-----------
         self.score = Score(ecran)
 
         #----------joueur------------
@@ -23,8 +24,10 @@ class Jeu:
 
         #----------ennemi------------
         self.ennemi_vitesse_y = 2
-        self.ennemi = Ennemi(randint(50,450),0,[32,64])
-        self.gravite = (0,4) #pour impression joueur tombe
+        self.ennemi = Ennemi(randint(80,410),0,[90,30])
+        self.ennemi1=Ennemi(randint(70,430),0,[70,20])
+        self.tabennemi=[self.ennemi, self.ennemi1]
+        self.gravite = (0,7.5)                          #pour impression joueur tombe
         self.resistance = (0,0)
 
         #--------------Sol-----------
@@ -34,6 +37,7 @@ class Jeu:
         
     def run(self):
         self.ecran.blit(self.image_fond,(0,0))
+        #----affichage du joueur ------
         self.player.affiche()
         score5 = self.score.point + 5
         quitter = False
@@ -58,38 +62,49 @@ class Jeu:
                         self.player.playerChange()
                
                
+            for i in   self.tabennemi:
 
-            if self.sol.rect.colliderect(self.ennemi.rect): # detecter que l'obstacle arrive en bas de l'ecran
-                self.ennemi.rect.y = 0
-                self.ennemi.color.couleur()
-                self.ennemi.rect.x = randint(50,450)
-                self.score.point += 1
-            if self.player.rect.colliderect(self.ennemi.rect) :    # collision entre l'ennemi et le joueur 
-                if not self.ennemi.color.color == self.player.color :
-                    if self.score.isBestScore():
-                        self.score.ajouterBestScore()
-                    gameover = Gameover(self.ecran,self.menu,self.score)
-                    gameover.run()
+                if self.sol.rect.colliderect(i.rect): # detecter que l'obstacle arrive en bas de l'ecran
+                    i.rect.y = 0
+                    i.color.couleur()
+                    i.rect.x = randint(80,410)
+                    self.score.point += 0.5
+                if self.player.rect.colliderect(i.rect) :    # collision entre l'ennemi et le joueur 
+                    if not i.color.color == self.player.color :
+                        if self.score.isBestScore():
+                            self.score.ajouterBestScore()
+                        gameover = Gameover(self.ecran,self.menu,self.score)
+                        gameover.run()
+                        
+                
             if self.score.point == score5:
                 self.player.playerChange()
                 score5 = self.score.point + 5
-
+                
+            for i in   self.tabennemi:
+               i.mouvement(self.ennemi_vitesse_y)
+           
 
             self.player.mouvement(self.joueur_vitesse_x)
-            self.ennemi.mouvement(self.ennemi_vitesse_y)
+           
             self.ecran.blit(self.image_fond,(0,0))
             #self.ecran.fill((255,255,255))
             
             self.score.afficherBestScore()
             self.score.afficher()
 
-            self.ennemi.afficher(self.ecran)
+           
             self.sol.afficher(self.ecran)
             self.gravite_jeu()
-
             self.player.affiche()
+            
+            for i in   self.tabennemi:
+                i.afficher(self.ecran)
 
             pygame.display.update()
 
     def gravite_jeu(self):
-        self.ennemi.rect.y += self.gravite[1] + self.resistance[1]
+        for i in self.tabennemi:
+            i.rect.y += self.gravite[1] + self.resistance[1]
+
+

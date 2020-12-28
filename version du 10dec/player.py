@@ -31,7 +31,8 @@ class Player:
         
 
     def mouvement ( self, vitesse):
-        self.x+=vitesse
+        if self.x+vitesse<470 and self.x+vitesse>0 :
+            self.x+=vitesse
         self.rect.x=self.x
         self.rect.y=self.y
 
@@ -41,9 +42,13 @@ class Player:
         self.ecran.blit(self.image,self.rect)
 
     def playerChange(self):
-
+        imagePercede=self.image
         self.image = choice(self.listePlayers)
+        #permet de pas retomber sur le meme personnage
         
+        while imagePercede == self.image :
+            self.image = choice(self.listePlayers)
+            
         if self.image==taod:
             self.color=(255,0,0)
         elif self.image==luigi:

@@ -7,6 +7,7 @@ from sol import*
 from random import*
 from score import*
 from gameover import*
+from malus import *
 
 class Jeu:
     def __init__(self,ecran,menu):
@@ -24,12 +25,18 @@ class Jeu:
 
         #----------ennemi------------
         self.ennemi_vitesse_y = 2
-        self.ennemi = Ennemi(randint(80,410),0,[90,30])
-        self.ennemi1=Ennemi(randint(70,430),0,[70,20])
+        self.ennemi = Ennemi(randint(80,410),0,[90,30]) #permet de faire varier les tailles 
+        self.ennemi1=Ennemi(randint(70,430),0,[70,20])  #ajouter un deuxième ennemi
         self.tabennemi=[self.ennemi, self.ennemi1]
+
+        #variable de la gravite 
         self.gravite = (0,7.5)                          #pour impression joueur tombe
         self.resistance = (0,0)
 
+        #---------- malus -----------
+        self.malus_vitesse_y = 4
+        self.malus = Malus(ecran,randint(80,410),0)
+    
         #--------------Sol-----------
         self.sol=Sol()
 
@@ -61,50 +68,77 @@ class Jeu:
                     elif event.key == pygame.K_SPACE:
                         self.player.playerChange()
                
-               
-            for i in   self.tabennemi:
 
-                if self.sol.rect.colliderect(i.rect): # detecter que l'obstacle arrive en bas de l'ecran
+            #les collisions des ennemis
+            for i in   self.tabennemi:
+                
+
+                # l'obstacle arrive en bas de l'ecran
+                if self.sol.rect.colliderect(i.rect): 
                     i.rect.y = 0
                     i.color.couleur()
                     i.rect.x = randint(80,410)
                     self.score.point += 0.5
-                if self.player.rect.colliderect(i.rect) :    # collision entre l'ennemi et le joueur 
+
+                # collision entre l'ennemi et le joueur 
+                if self.player.rect.colliderect(i.rect) :    
                     if not i.color.color == self.player.color :
                         if self.score.isBestScore():
                             self.score.ajouterBestScore()
                         gameover = Gameover(self.ecran,self.menu,self.score)
                         gameover.run()
-                        
-                
+
+            #collisions des malus
+                #si le malus arrive en bas :
+
+                if self.sol.rect.colliderect(self.malus.rect):
+                    self.malus = Malus(ecran,randint(80,410),0)
+
+                #collision entre une bombe et le joueur
+
+                #collision entre une pieuvre et le joueur
+
+            #gestion changement joueur 
             if self.score.point == score5:
                 self.player.playerChange()
                 score5 = self.score.point + 5
-                
+
+            #mouvement ennemi
             for i in   self.tabennemi:
                i.mouvement(self.ennemi_vitesse_y)
            
+            #mouvement malus
+            self.malus.mouvement(self.malus_vitesse_y)
 
+            #mouvement joueur
             self.player.mouvement(self.joueur_vitesse_x)
-           
+
+            #affichage de l'ecran
             self.ecran.blit(self.image_fond,(0,0))
             #self.ecran.fill((255,255,255))
-            
+
+            #affichage du score
             self.score.afficherBestScore()
             self.score.afficher()
 
-           
+            #affichage du score
             self.sol.afficher(self.ecran)
             self.gravite_jeu()
             self.player.affiche()
-            
+
+            #affichage des ennemis
             for i in   self.tabennemi:
                 i.afficher(self.ecran)
 
+            #affichage malus
+            self.malus.afficher()
+
+                                 
             pygame.display.update()
 
     def gravite_jeu(self):
         for i in self.tabennemi:
             i.rect.y += self.gravite[1] + self.resistance[1]
+        self.malus.rect.y += self.gravite[1] + self.resistance[1]
 
 

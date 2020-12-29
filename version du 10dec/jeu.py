@@ -88,15 +88,17 @@ class Jeu:
                         gameover = Gameover(self.ecran,self.menu,self.score)
                         gameover.run()
 
-           if self.sol.rect.colliderect(self.malus.rect):
-                    self.malus.y=0
-                    self.malus.x=randint(80,410)
-                    self.malus.changement()
+            #collisions des malus
+                #si le malus arrive en bas :
+
+            if self.sol.rect.colliderect(self.malus.rect):
+                self.malus.malusChange() 
+                self.malus.y=0
+                self.malus.x=randint(80,410)
 
                 #collision entre un malus et le joueur
             if self.player.rect.colliderect(self.malus.rect):
-                    self.malus.effet(self.ecran)
-
+                self.malus.effet()
 
 
             #gestion changement joueur 
@@ -140,6 +142,6 @@ class Jeu:
     def gravite_jeu(self):
         for i in self.tabennemi:
             i.rect.y += self.gravite[1] + self.resistance[1]
-        self.malus.rect.y += self.gravite[1] + self.resistance[1]
+        self.malus.y += self.gravite[1] + self.resistance[1]
 
 

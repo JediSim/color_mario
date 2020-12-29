@@ -91,12 +91,13 @@ class Jeu:
             #collisions des malus
                 #si le malus arrive en bas :
 
-                if self.sol.rect.colliderect(self.malus.rect):
+            if self.sol.rect.colliderect(self.malus.rect):
                     self.malus = Malus(ecran,randint(80,410),0)
 
-                #collision entre une bombe et le joueur
+                #collision entre un malus et le joueur
+            if self.player.rect.colliderect(self.malus.rect):
+                    self.malus.effet()
 
-                #collision entre une pieuvre et le joueur
 
             #gestion changement joueur 
             if self.score.point == score5:

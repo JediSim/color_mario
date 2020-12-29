@@ -27,6 +27,14 @@ class Malus(pygame.sprite.Sprite):
         self.rect.y=self.y
         self.ecran.blit(self.image,self.rect)
 
+    def effet(self):
+        #si c'est la pieuvre on affiche des cercles noirs pour cacher le jeu 
+        if self.image == pieuvre:
+            for i in (1,10):
+                pygame.draw.circle(ecran, (0,0,0),(randint(0,410),randint(0,410)),randint(5,20))
+
+                
+
 
                 
         

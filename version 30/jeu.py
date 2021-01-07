@@ -10,6 +10,7 @@ from gameover import*
 from malus import *
 from bonus import *
 
+
 class Jeu:
     def __init__(self,ecran,menu):
         self.image_fond = pygame.image.load("images/fondmario.jpg")
@@ -21,7 +22,7 @@ class Jeu:
         self.score = Score(ecran)
 
         #----------joueur------------
-        self.joueur_vitesse_x = 0
+        self.player_vitesse_x = 0
         self.player = Player(ecran)
 
         #----------ennemi------------
@@ -55,10 +56,13 @@ class Jeu:
         
         res_score=True
         res_score1=True
+        toucher_bomb=False
+        score_prec=0
         rep=randint(0,1)
         #----affichage du joueur ------
         self.player.affiche()
         quitter = False
+        
         while not quitter:
             self.clock.tick(self.FPS)
             rep=randint(0,1)
@@ -69,15 +73,15 @@ class Jeu:
                     quitter = True
                 elif event.type == pygame.KEYDOWN: # touches presse 
                     if event.key == pygame.K_LEFT:
-                        self.joueur_vitesse_x= -5
+                        self.player_vitesse_x= - self.player.vitesseX
                     elif event.key == pygame.K_RIGHT:
-                        self.joueur_vitesse_x= 5
+                        self.player_vitesse_x= self.player.vitesseX
                     
                 elif event.type==pygame.KEYUP:  # touche relachée 
                     if event.key == pygame.K_RIGHT:
-                        self.joueur_vitesse_x= 0               
+                        self.player_vitesse_x= 0               
                     elif event.key==pygame.K_LEFT:
-                        self.joueur_vitesse_x= 0
+                        self.player_vitesse_x= 0
                     elif event.key == pygame.K_SPACE:
                         self.player.playerChange()
                
@@ -117,12 +121,45 @@ class Jeu:
                         self.malus.x=600
                     else:
                         i.x=600
+
+                        
             #collision entre les 2 ennemi 
             if self.ennemi1.rect.colliderect(self.ennemi.rect):
                 self.ennemi1.rect.x=self.ennemi1.rect.x-self.taille1
-                
-            #collisions des malus
 
+                
+            #collision des pieces (bonus)
+                #si le bonus arrive en bas
+                
+            if self.sol.rect.colliderect(self.bonus.rect):
+                self.bonus.y=0
+                self.bonus.x=randint(80,410)
+
+            #collision entre un bonus et le joueur
+            if self.player.rect.colliderect(self.bonus.rect):
+                if res_score1==True:
+                        self.score.point +=1
+                        res_score1=False
+                        #hors de champs
+                        self.bonus.x=600
+            else:
+                    res_score1=True
+
+    
+            #collisions des malus
+                #collision entre un malus et le joueur
+            if self.player.rect.colliderect(self.malus.rect):
+                #if  self.malus.effet(self.ecran)=="bomb":
+                    #toucher_bomb=True
+                    #self.malus.x=600
+                    #self.player.vitesseX=3
+                #else:
+                    self.malus.effet(self.ecran)
+            print(score_prec)        
+            #if toucher_bomb==True and score_prec==self.score.point:
+                #self.player.vitesseX=5
+                # a revoir pour la bombe 
+                    
                 # supperposition de sprite
             if self.malus.rect.colliderect(self.bonus.rect):
                 
@@ -140,27 +177,8 @@ class Jeu:
                 self.malus.y=0
                 self.malus.x=randint(80,410)
           
-                
-                #collision entre un malus et le joueur
-            if self.player.rect.colliderect(self.malus.rect):
-                self.malus.effet()
-
-            #collision des pieces (bonus)
-                #si le bonus arrive en bas
-            if self.sol.rect.colliderect(self.bonus.rect):
-                self.bonus.y=0
-                self.bonus.x=randint(80,410)
-
-            #collision entre un bonus et le joueur
-            if self.player.rect.colliderect(self.bonus.rect):
-                if res_score1==True:
-                        self.score.point +=1
-                        res_score1=False
-                        #hors de champs
-                        self.bonus.x=600
-            else:
-                    res_score1=True
-
+                                 
+            
 
             #mouvement ennemi
             for i in   self.tabennemi:
@@ -173,7 +191,7 @@ class Jeu:
             self.bonus.mouvement(self.bonus_vitesse_y)
 
             #mouvement joueur
-            self.player.mouvement(self.joueur_vitesse_x)
+            self.player.mouvement(self.player_vitesse_x)
 
             #affichage de l'ecran
             self.ecran.blit(self.image_fond,(0,0))
@@ -197,8 +215,12 @@ class Jeu:
 
             #affichage bonus
             self.bonus.afficher()
+            
 
-                                 
+                    
+
+            
+                
             pygame.display.update()
 
     def gravite_jeu(self):

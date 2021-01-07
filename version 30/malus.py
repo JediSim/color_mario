@@ -4,8 +4,8 @@ from pygame.locals import*
 
 
 #variables malus :
-bomb=pygame.transform.scale(pygame.image.load('images/bomb.webp'),(30,30))
-pieuvre=pygame.transform.scale(pygame.image.load('images/pieuvre.png'),(30,30))
+bomb=pygame.transform.scale(pygame.image.load('images/bomb.webp'),(40,40))
+pieuvre=pygame.transform.scale(pygame.image.load('images/pieuvre.png'),(40,40))
 
 class Malus(pygame.sprite.Sprite):
 
@@ -27,12 +27,18 @@ class Malus(pygame.sprite.Sprite):
         self.rect.y=self.y
         self.ecran.blit(self.image,self.rect)
 
-    def effet(self):
+    def effet(self,surface):
+        i=0
         #si c'est la pieuvre on affiche des cercles noirs pour cacher le jeu 
         if self.image == pieuvre:
-            for i in (1,10):
-                pygame.draw.circle(self.ecran, (0,0,200),(randint(1,410),randint(1,410)),randint(5,20))
-
+            while i<20:
+                pygame.draw.circle(surface, (0,0,0),(randint(1,410),randint(1,410)),randint(5,20))
+                i=i+1
+            pygame.display.update()
+        else:
+            return "bomb"
+            
+            
     def malusChange(self):
         self.image=choice(self.listeMalus)
 

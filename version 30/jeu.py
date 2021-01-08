@@ -33,8 +33,9 @@ class Jeu:
         self.ennemi1=Ennemi(randint(70,430),0,[self.taille1,30])  #ajouter un deuxième ennemi
         self.tabennemi=[self.ennemi, self.ennemi1]
 
-        #variable de la gravite 
-        self.gravite = (0,7.5)                          #pour impression joueur tombe
+        #variable de la gravite
+        self.valeurG=7.5
+        self.gravite = (0,self.valeurG)                          #pour impression joueur tombe
         self.resistance = (0,0)
 
         #---------- malus -----------
@@ -57,7 +58,7 @@ class Jeu:
         res_score=True
         res_score1=True
         toucher_bomb=False
-        score_prec=0
+        bomb_temps=0
         rep=randint(0,1)
         #----affichage du joueur ------
         self.player.affiche()
@@ -147,19 +148,23 @@ class Jeu:
 
     
             #collisions des malus
-                    
                 #collision entre un malus et le joueur
             if self.player.rect.colliderect(self.malus.rect):
-                #if  self.malus.effet(self.ecran)=="bomb":
-                    #toucher_bomb=True
-                    #self.malus.x=600
-                    #self.player.vitesseX=3
-                #else:
-                    self.malus.effet(self.ecran)
-            #if toucher_bomb==True and score_prec==self.score.point:
-                #self.player.vitesseX=5
-                # a revoir pour la bombe 
+                if  self.malus.effet(self.ecran)=="bomb":
                     
+                    toucher_bomb=True
+                    bomb_temps=0
+                    #hors du champs
+                    self.malus.x=600
+                    self.player.malusChange(3)
+                    
+                    
+                else:
+                    self.malus.effet(self.ecran)
+                   
+            if toucher_bomb==True and bomb_temps==500 :
+                self.player.malusChange(5)
+                toucher_bomb=False 
                 # superposition de sprite
             if self.malus.rect.colliderect(self.bonus.rect):
                 
@@ -179,7 +184,10 @@ class Jeu:
           
                                  
             
-
+            if self.score.point == self.score.point +4 :
+                self.valeurG=self.valeurG+1.5
+                self.gravite=(0,self.valeurG)
+                
             #mouvement ennemi
             for i in   self.tabennemi:
                i.mouvement(self.ennemi_vitesse_y)
@@ -219,7 +227,7 @@ class Jeu:
 
                     
 
-            
+            bomb_temps+=1 
                 
             pygame.display.update()
 

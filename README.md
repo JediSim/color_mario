@@ -1,8 +1,10 @@
 # color_mario
 
 Ce jeu est un mélange original entre Color Switch et le monde de Mario.
-Votre But rester en vie en envitant ou traversant les obstacle qui vous tombent dessus.
-Vous pouvez les traverser si votre couleur est identique à l'obsacle.
 
-Pour jouer ouvrer le main.py 
-Bonne chance.
+Le But ? Rester en vie en évitant ou traversant les obstacle qui vous tombent dessus.
+Vous pouvez les traverser si votre couleur est identique à celle de l'obstacle.
+
+Pour jouer ouvrez le main.py 
+
+Bonne chance !

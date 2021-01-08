@@ -2,16 +2,15 @@ import pygame
 from random import *
 
 #variable players :
-taod=pygame.transform.scale(pygame.image.load('images/player.png'),(30,30))
-luigi=pygame.transform.scale(pygame.image.load('images/player1.png'),(30,30))
-yochi=pygame.transform.scale(pygame.image.load('images/player2.png'),(30,30))
+taod=pygame.transform.scale(pygame.image.load('images/player.png'),(40,40))
+luigi=pygame.transform.scale(pygame.image.load('images/player1.png'),(40,40))
+yochi=pygame.transform.scale(pygame.image.load('images/player2.png'),(40,40))
 
 
 
 class Player:
     def __init__(self,ecran):
         super().__init__()
-        
 
         self.listePlayers = [taod,luigi,yochi]
 
@@ -57,6 +56,7 @@ class Player:
             self.color=(0,0,255)
 
             
-    def vitesseChange(self):
-        self.vitesseX=3
+    def malusChange(self,vitesse):
+        self.vitesseX=vitesse
+        
 

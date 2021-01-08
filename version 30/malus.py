@@ -4,8 +4,8 @@ from pygame.locals import*
 
 
 #variables malus :
-bomb=pygame.transform.scale(pygame.image.load('images/bomb.webp'),(40,40))
-pieuvre=pygame.transform.scale(pygame.image.load('images/pieuvre.png'),(40,40))
+bomb=pygame.transform.scale(pygame.image.load('images/bomb.webp'),(50,50))
+pieuvre=pygame.transform.scale(pygame.image.load('images/pieuvre.png'),(50,50))
 
 class Malus(pygame.sprite.Sprite):
 
@@ -34,7 +34,7 @@ class Malus(pygame.sprite.Sprite):
             while i<200:
                 pygame.draw.circle(surface, (0,0,0),(randint(1,410),randint(1,410)),randint(5,20))
                 i=i+1
-            pygame.display.update()
+                pygame.display.update()
         else:
             return "bomb"
             

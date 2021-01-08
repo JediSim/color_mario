@@ -59,6 +59,7 @@ class Jeu:
         res_score1=True
         toucher_bomb=False
         bomb_temps=0
+        score4=4
         rep=randint(0,1)
         #----affichage du joueur ------
         self.player.affiche()
@@ -184,9 +185,10 @@ class Jeu:
           
                                  
             
-            if self.score.point == self.score.point +4 :
+            if self.score.point == score4 :
                 self.valeurG=self.valeurG+1.5
                 self.gravite=(0,self.valeurG)
+                score4=self.score.point+4
                 
             #mouvement ennemi
             for i in   self.tabennemi:

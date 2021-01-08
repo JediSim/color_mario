@@ -26,11 +26,11 @@ class Jeu:
         self.player = Player(ecran)
 
         #----------ennemi------------
-        self.taille=90
-        self.taille1=70
+        self.taille=140
+        self.taille1=100
         self.ennemi_vitesse_y = 2
         self.ennemi = Ennemi(randint(80,410),0,[self.taille,30]) #permet de faire varier les tailles 
-        self.ennemi1=Ennemi(randint(70,430),0,[self.taille1,20])  #ajouter un deuxième ennemi
+        self.ennemi1=Ennemi(randint(70,430),0,[self.taille1,30])  #ajouter un deuxième ennemi
         self.tabennemi=[self.ennemi, self.ennemi1]
 
         #variable de la gravite 
@@ -113,7 +113,7 @@ class Jeu:
                             self.score.ajouterBestScore()
                         gameover = Gameover(self.ecran,self.menu,self.score)
                         gameover.run()
-                # supperposition de sprite
+                # superposition de sprite
                 if self.malus.rect.colliderect(i.rect) :
                     
                     if rep==1:
@@ -123,7 +123,7 @@ class Jeu:
                         i.x=600
 
                         
-            #collision entre les 2 ennemi 
+            #collision entre les 2 ennemis 
             if self.ennemi1.rect.colliderect(self.ennemi.rect):
                 self.ennemi1.rect.x=self.ennemi1.rect.x-self.taille1
 
@@ -147,6 +147,7 @@ class Jeu:
 
     
             #collisions des malus
+                    
                 #collision entre un malus et le joueur
             if self.player.rect.colliderect(self.malus.rect):
                 #if  self.malus.effet(self.ecran)=="bomb":
@@ -155,12 +156,11 @@ class Jeu:
                     #self.player.vitesseX=3
                 #else:
                     self.malus.effet(self.ecran)
-            print(score_prec)        
             #if toucher_bomb==True and score_prec==self.score.point:
                 #self.player.vitesseX=5
                 # a revoir pour la bombe 
                     
-                # supperposition de sprite
+                # superposition de sprite
             if self.malus.rect.colliderect(self.bonus.rect):
                 
                 if rep==1:

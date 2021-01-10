@@ -32,9 +32,9 @@ class Malus(pygame.sprite.Sprite):
         #si c'est la pieuvre on affiche des cercles noirs pour cacher le jeu 
         if self.image == pieuvre:
             while i<200:
-                pygame.draw.circle(surface, (0,0,0),(randint(1,410),randint(1,410)),randint(5,20))
+                pygame.draw.circle(surface, (0,0,0),(randint(1,470),randint(1,470)),randint(5,20))
                 i=i+1
-                pygame.display.update()
+            pygame.display.update()
         else:
             return "bomb"
             

@@ -188,6 +188,7 @@ class Jeu:
             if self.score.point == score4 :
                 self.valeurG=self.valeurG+1.5
                 self.gravite=(0,self.valeurG)
+                self.player.vitesseX=self.player.vitesseX+1
                 score4=self.score.point+4
                 
             #mouvement ennemi

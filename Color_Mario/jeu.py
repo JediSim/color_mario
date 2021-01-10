@@ -160,40 +160,47 @@ class Jeu:
                     else:
                         res_score1=True
                 elif self.bonus.effet(self.ecran)=="etoile":
+                    #changement du joueur -----------------------
                     self.player.playerChange()
 
                     
 
     
-            #collisions des malus
-                #collision entre un malus et le joueur
+            #collisions des malus------------------------------
+                #collision entre un malus et le joueur---------
             if self.player.rect.colliderect(self.malus.rect):
+                # si le malus est une bomb -------------------
                 if  self.malus.effet(self.ecran)=="bomb":
                     
                     toucher_bomb=True
                     bomb_temps=0
                     #hors du champs
                     self.malus.x=600
+                    # diminuer la vitesse du joueur (car toucher par le malus la bomb 
                     self.player.malusChange(3)
                     
                     
                 else:
+                    #sinon (touche le fantome) faire l'effet avec les cercles ----------
                     self.malus.effet(self.ecran)
-                   
+                    
+            # cette partie permet de gerer le temps durant lequel le joueur est ralenti par la bomb qui aurai touchée       
             if toucher_bomb==True and bomb_temps==500 :
                 self.player.malusChange(5)
                 toucher_bomb=False 
-                # superposition de sprite
+                
+                # superposition de sprite---------------------------------
             if self.malus.rect.colliderect(self.bonus.rect):
                 
                 if rep==1:
-                        #mettre hors du champs le bonus 
+                        #mettre hors du champs le bonus depend du hasard de la varaible rep
                         self.bonus.x=600
                 else:
+                        #mettre hors du champs le malus depend du hasard de la varaible rep
                         self.malus.x=600
                 
                 
-                #si le malus arrive en bas :
+                #si le malus arrive en bas (en contact avec la sol : --------------
 
             if self.sol.rect.colliderect(self.malus.rect):
                 self.malus.malusChange() 
@@ -201,54 +208,59 @@ class Jeu:
                 self.malus.x=randint(80,410)
           
                                  
-            
+            # augmentation de la vitesse du jeu en fonction du score 
             if self.score.point == score4 :
+                # augementation de la vitesse des ennemis--------------- 
                 self.valeurG=self.valeurG+1.5
                 self.gravite=(0,self.valeurG)
+                # augmentation de la vitesse du joueur ----------------
                 self.player.vitesseX=self.player.vitesseX+1
                 score4=self.score.point+4
-                
-            #mouvement ennemi
+            
+            #-----------------------MOUVEMENT ---------------------
+            #mouvement ennemis -----------------------------------
             for i in   self.tabennemi:
                i.mouvement(self.ennemi_vitesse_y)
            
-            #mouvement malus
+            #mouvement malus--------------------------------------
             self.malus.mouvement(self.malus_vitesse_y)
 
-            #mouvement bonus
+            #mouvement bonus----------------------------------------
             self.bonus.mouvement(self.bonus_vitesse_y)
 
-            #mouvement joueur
+            #mouvement joueur---------------------------------------
             self.player.mouvement(self.player_vitesse_x)
 
-            #affichage de l'ecran
+            
+            #-----------------------AFFICHANGE ---------------------
+            #affichage de l'ecran------------------------------------
             self.ecran.blit(self.image_fond,(0,0))
-            #self.ecran.fill((255,255,255))
+            
 
-            #affichage du score
+            #affichage du score------------------------------------
             self.score.afficherBestScore()
             self.score.afficher()
 
-            #affichage du score
+            #affichage du score------------------------------------
             self.sol.afficher(self.ecran)
             self.gravite_jeu()
             self.player.affiche()
 
-            #affichage des ennemis
+            #affichage des ennemis-------------------------------
             for i in   self.tabennemi:
                 i.afficher(self.ecran)
 
-            #affichage malus
+            #affichage malus---------------------------------------
             self.malus.afficher()
 
-            #affichage bonus
+            #affichage bonus--------------------------------------
             self.bonus.afficher()
             
 
                     
-
+            #incrementation de la variable ------------------------
             bomb_temps+=1 
-                
+            # rafrechissement de l'ecran ------------------------
             pygame.display.update()
 
     def gravite_jeu(self):

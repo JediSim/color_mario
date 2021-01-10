@@ -8,24 +8,22 @@ class Gameover():
         self.ecran = ecran
         self.menu = menu
         self.score = score
-        self.xGameOver = 100
-        self.yGameOver = 90
-        self.xBestScore = 150
-        self.yBestScore = 145
-        self.xYourScore = 200
-        self.yYourScore = 175
-        self.couleurTexte = (255,0,0)
+        self.xGameOver = 0
+        self.yGameOver = 0
+        self.xBestScore = 15
+        self.yBestScore = 160
+        self.xYourScore = 65
+        self.yYourScore = 190
 
     def afficherGameOver(self):
         font=pygame.font.Font(None, 75)
-        champs = font.render("GAME OVER",1,self.couleurTexte)
-        self.ecran.blit(champs,(self.xGameOver,self.yGameOver))
+        self.ecran.blit(pygame.image.load("images/gameover.jpg"),(self.xGameOver,self.yGameOver))
 
     def run(self):
         RUNNING = True
         while RUNNING:
             self.ecran.fill( (250,250,250) ) # couleur du fond 
-            bouton_menu = Bouton(200,255,100,50,self.ecran,"menu",(255,255,255))
+            bouton_menu = Bouton(40,400,100,50,self.ecran,"MENU",(255,255,255))
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 

@@ -20,7 +20,7 @@ class Player:
         self.image = choice(self.listePlayers)
         self.rect=self.image.get_rect()
         self.ecran = ecran
-
+        # attibution du couleur pour chaque joueurs ------
         if self.image==taod:
             self.color=(255,0,0)
         elif self.image==luigi:
@@ -31,6 +31,7 @@ class Player:
         
 
     def mouvement ( self, vitesse):
+        # ces condition permettent de ne pas sortir de la fenetre de jeu 
         if self.x+vitesse<470 and self.x+vitesse>0 :
             self.x+=vitesse
         self.rect.x=self.x
@@ -44,6 +45,7 @@ class Player:
     def playerChange(self):
         imageprec=self.image
         self.image = choice(self.listePlayers)
+        
         #permet de ne pas tomber sur la meme image
         while imageprec==self.image:
             self.image=choice(self.listePlayers)
@@ -55,7 +57,7 @@ class Player:
         else:
             self.color=(0,0,255)
 
-            
+    # cette fonction quand elle est appelée modifie la vitesse du joueur        
     def malusChange(self,vitesse):
         self.vitesseX=vitesse
         

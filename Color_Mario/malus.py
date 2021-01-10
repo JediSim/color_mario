@@ -34,11 +34,12 @@ class Malus(pygame.sprite.Sprite):
             while i<200:
                 pygame.draw.circle(surface, (0,0,0),(randint(1,470),randint(1,470)),randint(5,20))
                 i=i+1
+            # rafraichir l'ecran ( apparaition des cercles )
             pygame.display.update()
         else:
             return "bomb"
             
-            
+    # permet de modifier le malus (fantome ou bomb)        
     def malusChange(self):
         self.image=choice(self.listeMalus)
 

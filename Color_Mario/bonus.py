@@ -1,7 +1,7 @@
 import pygame
 from random import *
 
-#variable players :
+#variable bonus :
 piece=pygame.transform.scale(pygame.image.load('images/piece.png'),(30,30))
 etoile=pygame.transform.scale(pygame.image.load('images/etoile.png'),(30,30))
 
@@ -32,6 +32,6 @@ class Bonus:
             return "piece"
         else :
             return "etoile"
-
+    # cette fonction nous permet quand elle est appelé de change aleatoirement de bonus(etoile/ piece) 
     def bonusChange(self):
         self.image=choice(self.listeBonus)

@@ -8,6 +8,6 @@ Un autre moyen d'augmenter votre score, est de récupérer les pieces.
 Mais attention aux malus! La bombe vous fera ralentir alors que la pieuvre viendra obstruer votre visibilité du jeu pendant quelques temps.
 
 
-Pour jouer il vous faudra tout d'abord installer python puis pygame, ensuite vous n'aurez qu'à télecharger le fichier ...... et ouvrir le main.py 
+Pour jouer il vous faudra tout d'abord installer python puis pygame, ensuite vous n'aurez qu'à télecharger le fichier Color_Mario et ouvrir le main.py 
 
 Bonne chance !

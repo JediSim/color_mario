@@ -9,9 +9,9 @@ class Menu:
     
     def run(self):
         while self.RUNNING:
-            self.ecran.fill( (250,250,250) ) # couleur du fond 
-            start = Bouton(200,200,100,50,self.ecran,"start",(255,255,255))
-            quit_bouton = Bouton(200,255,100,50,self.ecran,"quit",(255,255,255))
+            self.ecran.blit(pygame.image.load("images/fondmenu.jpg"),(0,0)) # couleur du fond 
+            start = Bouton(200,350,100,50,self.ecran,"     JOUER",(255, 255, 255))
+            quit_bouton = Bouton(200,410,100,50,self.ecran,"   QUITTER",(255, 255, 255))
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pouvoir quitter la ecran 
@@ -25,3 +25,4 @@ class Menu:
             pygame.display.update()
          
         pygame.quit()
+
